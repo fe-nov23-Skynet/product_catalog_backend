@@ -12,7 +12,23 @@ export default function ProductForm({
     images: existingImages,
     category: assignedCategory,
     properties: assignedProperties,
+    // Додано нові колонки для нових даних
+    seoTitle: existingSeoTitle,
+    seoName: existingSeoName,
+    seoContent:existingSeoContent,
+    seoKey: existingSeoKey,
+    article:existingArticle,
+    characteristics:existingCharacteristics,
 }) {
+    // Додано нові колонки для нових даних
+    const [seoTitle, setSeoTitle] = useState(existingSeoTitle || '');
+    const [seoName, setSeoName] = useState(existingSeoName || '');
+    const [seoContent, setSeoContent] = useState(existingSeoContent || '');
+    const [seoKey, setSeoKey] = useState(existingSeoKey || '');
+    const [article, setArticle] = useState(existingArticle || '');
+    const [characteristics, setCharacteristics] = useState(existingCharacteristics || '');
+
+    // Додано нові колонки для нових даних 
     const [title, setTitle] = useState(existingTitle || '');
     const [description, setDescription] = useState(existingDescription || '');
     const [category, setCategory] = useState(assignedCategory || '');
@@ -30,7 +46,7 @@ export default function ProductForm({
     }, []);
     async function saveProduct(ev) {
         ev.preventDefault();
-        const data = {title, description, price, images, category, 
+        const data = {title, description, price, images, category,  seoTitle, seoName, seoContent, seoKey, article, characteristics,
             properties: productProperties 
         };
         if (_id) {
@@ -156,6 +172,46 @@ export default function ProductForm({
                     <input onChange={uploadImages} type="file" className="hidden" />
                 </label>
             </div>
+            {/* Нові дані для вводу */}
+            <h1>Мета дані (SEO)</h1>
+            <ladel>Title</ladel>
+            <textarea
+                placeholder="title"
+                value={seoTitle}
+                onChange={ev => setSeoTitle(ev.target.value)}
+            ></textarea>
+            <ladel>Name</ladel>
+            <textarea
+                placeholder="name"
+                value={seoName}
+                onChange={ev => setSeoName(ev.target.value)}
+            ></textarea>
+            <ladel>Content</ladel>
+            <textarea
+                placeholder="content"
+                value={seoContent}
+                onChange={ev => setSeoContent(ev.target.value)}
+            ></textarea>
+            <ladel>Key</ladel>
+            <textarea
+                placeholder="key"
+                value={seoKey}
+                onChange={ev => setSeoKey(ev.target.value)}
+            ></textarea>
+            <h1>Про товар</h1>
+            <ladel>Артикул</ladel>
+            <textarea
+                placeholder="артикул"
+                value={article}
+                onChange={ev => setArticle(ev.target.value)}
+            ></textarea>
+             <ladel>Характеристики</ladel>
+            <textarea
+                placeholder="характеристики"
+                value={characteristics}
+                onChange={ev => setCharacteristics(ev.target.value)}
+            ></textarea>
+             {/* Нові дані для вводу  */}
             <ladel>Опис</ladel>
             <textarea
                 placeholder="опис"

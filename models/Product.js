@@ -7,6 +7,12 @@ const ProductSchema = new Schema({
     images: [{ type: String }],
     category: {type: mongoose.Types.ObjectId, ref: 'Category'},
     properties: {type: Object},
+    seoTitle: { type: String, required: true },
+    seoName: { type: String, required: true }, 
+    seoContent: { type: String, required: true }, 
+    seoKey: { type: String, required: true }, 
+    article: { type: String, required: true },
+    characteristics: { type: String, required: true },
 }, {
     timestamps: true,
 });
