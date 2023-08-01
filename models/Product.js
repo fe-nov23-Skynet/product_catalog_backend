@@ -13,6 +13,11 @@ const ProductSchema = new Schema({
     seoKey: { type: String, required: true }, 
     article: { type: String, required: true },
     characteristics: { type: String, required: true },
+    availability: { type: String, required: true },
+    dynamicCharacteristics: [{
+        key: { type: String, required: true },
+        value: { type: String, required: true }
+    }],
 }, {
     timestamps: true,
 });

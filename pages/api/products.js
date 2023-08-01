@@ -2,8 +2,6 @@ import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import { isAdminRequest } from "./auth/[...nextauth]";
 
-
-
 export default async function handle(req, res) {
     const { method } = req;
     await mongooseConnect()
@@ -19,16 +17,16 @@ export default async function handle(req, res) {
     }
 
     if (method === "POST") {
-        const { title, description, price, images, category, properties, seoTitle, seoName, seoContent, seoKey, article, characteristics } = req.body;
+        const { title, description, price, images, category, properties, seoTitle, seoName, seoContent, seoKey, article, characteristics, availability, dynamicCharacteristics  } = req.body;
         const productDoc = await Product.create({
-            title, description, price, images, category, properties, seoTitle, seoName, seoContent, seoKey, article, characteristics
+            title, description, price, images, category, properties, seoTitle, seoName, seoContent, seoKey, article, characteristics,availability, dynamicCharacteristics
         })
         res.json(productDoc)
     }
 
     if (method === "PUT") {
-        const { title, description, price, images, category, properties, seoTitle, seoName, seoContent, seoKey, article, characteristics , _id } = req.body;
-        await Product.updateOne({ _id }, { title, description, price, images, category, properties, seoTitle, seoName, seoContent, seoKey, article, characteristics});
+        const { title, description, price, images, category, properties, seoTitle, seoName, seoContent, seoKey, article, characteristics, availability , dynamicCharacteristics,  _id } = req.body;
+        await Product.updateOne({ _id }, { title, description, price, images, category, properties, seoTitle, seoName, seoContent, seoKey, article, characteristics, availability, dynamicCharacteristics});
         res.json(true);
     }
 
