@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -52,7 +53,7 @@ export default function ProductForm({
   useEffect(() => {
     setDynamicCharacteristics(existingDynamicCharacteristics || []);
   }, [existingDynamicCharacteristics]);
-  
+
   useEffect(() => {
     axios.get("/api/categories").then((result) => {
       setCategories(result.data);
@@ -137,7 +138,7 @@ export default function ProductForm({
       { key: "", value: "" },
     ]);
   }
-  
+
   function updateCharacteristic(index, key, value) {
     setDynamicCharacteristics((prevCharacteristics) => {
       const newCharacteristics = [...prevCharacteristics];
@@ -145,7 +146,7 @@ export default function ProductForm({
       return newCharacteristics;
     });
   }
-  
+
   function removeCharacteristic(index) {
     setDynamicCharacteristics((prevCharacteristics) => {
       const newCharacteristics = [...prevCharacteristics];
@@ -156,20 +157,30 @@ export default function ProductForm({
   //Характеристики
   return (
     <form onSubmit={saveProduct}>
-      <ladel>Назва товару</ladel>
-      <input
-        type="text"
-        placeholder="назва товару"
-        value={title}
-        onChange={(ev) => setTitle(ev.target.value)}
-      />
-      <ladel>Категорія</ladel>
-      <select value={category} onChange={(ev) => setCategory(ev.target.value)}>
-        <option value="">Відсутня категорія</option>
-        {categories.length > 0 &&
-          categories.map((c) => <option value={c._id}>{c.name}</option>)}
-      </select>
-      {categories.length > 0 &&
+      <div className="input-block grid-2">
+        <label>
+          Назва товару
+          <input
+            type="text"
+            placeholder="введіть назву товару"
+            value={title}
+            onChange={(ev) => setTitle(ev.target.value)}
+          />
+        </label>
+
+        <label>
+          Категорія товару:
+          <select value={category} onChange={(ev) => setCategory(ev.target.value)}>
+            <option value="">Виберіть зі списку</option>
+            {categories.length > 0 &&
+              categories.map((c) => <option value={c._id} key={c}>
+                {c.name}
+              </option>)}
+          </select>
+        </label>
+      </div>
+
+      {/* {categories.length > 0 &&
         propertiesToFill.map((p) => (
           <div key={""} className="">
             <>{p.name[0].toUpperCase() + p.name.substring(1)}</>
@@ -179,13 +190,140 @@ export default function ProductForm({
                 onChange={(ev) => setProductProp(p.name, ev.target.value)}
               >
                 {p.values.map((v) => (
-                  <option value={v}>{v}</option>
+                  <option value={v} key={v}>
+                    {v}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
-        ))}
-      <ladel>Зображення</ladel>
+        ))} */}
+
+
+
+
+      <p>Ціна та наявність</p>
+      <div className="input-block grid-3">
+        {/* Галочка про наявність товару */}
+
+        {/* <textarea
+        placeholder="availability"
+        value={availability}
+        onChange={(ev) => setAvailability(ev.target.value)}
+      ></textarea> */}
+
+        <div>
+          <label>
+            Базова ціна
+            <input type="number" name="basePrice" />
+          </label>
+        </div>
+
+        <div>
+          <label>
+            Ціна зі знижкою
+            <input type="number" name="discountPrice" />
+          </label>
+        </div>
+
+        <div className="stock">
+          <div className="isOnStock">
+            <label>в наявності
+              <input type="radio" name="onStock" value={'yes'} />
+            </label>
+            <label>
+              відсутній
+              <input type="radio" name="onStock" value={'no'} />
+            </label>
+            <label>
+              в дорозі
+              <input type="radio" name="onStock" value={'wait'} />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <p>Екран та його властивості</p>
+      <div className="input-block grid-2">
+        <div>
+          <label>
+            Розмір екрану
+            <input type="text" name="displaySize" />
+          </label>
+        </div>
+        <div>
+          <label>
+            Розширення екрану
+            <input type="text" name="displayResolution" />
+          </label>
+        </div>
+      </div>
+
+      <p>Камера</p>
+      <div className="input-block grid-2">
+        <div>
+          <label>
+            Камера
+            <input type="text" name="camera" />
+          </label>
+        </div>
+        <div>
+          <label>
+            Зум
+            <input type="text" name="zoom" />
+          </label>
+        </div>
+      </div>
+
+      <p>Процесор та пам'ять</p>
+      <div className="input-block grid-3">
+        <div>
+          <label>
+            Процесор
+            <input type="text" name="processor" />
+          </label>
+        </div>
+        <div>
+          <label>
+            ОЗУ
+            <input type="text" name="ram" />
+          </label>
+          <label>
+            Інші варіанти ОЗУ
+            <input type="text" name="ramAvailale" />
+          </label>
+        </div>
+        <div>
+          <label>
+            Об'єм пам'яті
+            <input type="text" name="capacity" />
+          </label>
+          <label>
+            Інші варіанти об'єму пам'яті
+            <input type="text" name="capacityAvailable" />
+          </label>
+        </div>
+      </div>
+
+      <p>Колір</p>
+      <div className="input-block grid-2">
+        <div>
+          <label>
+            Колір виробу
+            <input type="text" name="color" />
+          </label>
+        </div>
+        <div>
+          <label>
+            Доступні кольори
+            <input type="text" name="colorAvailable" />
+          </label>
+        </div>
+      </div>
+
+      <label>
+        Додати зображення (одне або декілька)
+      </label>
       <div className="mb-2 flex flex-wrap gap-2">
         <ReactSortable
           className="flex flex-wrap gap-1"
@@ -211,10 +349,11 @@ export default function ProductForm({
             <Spinner />
           </div>
         )}
+
         <label
-          className=" w-26 h-26 
-                border text-center flex flex-col 
-                 items-center justify-center text-primary 
+          className=" w-26 h-26
+                border text-center flex flex-col
+                 items-center justify-center text-primary
                  rounded-sm bg-gray-200 cursor-pointer shadow-md
                  border border-primary
                  "
@@ -237,45 +376,49 @@ export default function ProductForm({
           <input onChange={uploadImages} type="file" className="hidden" />
         </label>
       </div>
-      {/* Галочка про наявність товару */}
-      <h1>Наявність</h1>
-      <ladel>('Є в наявності' або 'Товар відсутній')</ladel>
-      <textarea
-        placeholder="availability"
-        value={availability}
-        onChange={(ev) => setAvailability(ev.target.value)}
-      ></textarea>
 
-      {/* Галочка про наявність товару */}
+      <br />
+
 
       {/* Нові дані для вводу */}
-      <h1>Мета дані (SEO)</h1>
-      <ladel>Title</ladel>
+      <p>Мета дані (SEO)</p>
+      <div className="input-block">
+        <label>
+          Введіть ключові слова для SEO оптимізації (слова по котрим пошукові системи будуть просувати Ваш сайт)
+          <input
+            type="text"
+            placeholder="введіть назву товару"
+            value={title}
+            onChange={(ev) => setTitle(ev.target.value)}
+          />
+        </label>
+      </div>
+      {/* <ladel>Title</ladel>
       <textarea
         placeholder="title"
         value={seoTitle}
         onChange={(ev) => setSeoTitle(ev.target.value)}
-      ></textarea>
-      <ladel>Name</ladel>
+      ></textarea> */}
+      {/* <ladel>Name</ladel>
       <textarea
         placeholder="name"
         value={seoName}
         onChange={(ev) => setSeoName(ev.target.value)}
-      ></textarea>
-      <ladel>Content</ladel>
+      ></textarea> */}
+      {/* <ladel>Content</ladel>
       <textarea
         placeholder="content"
         value={seoContent}
         onChange={(ev) => setSeoContent(ev.target.value)}
-      ></textarea>
-      <ladel>Key</ladel>
+      ></textarea> */}
+      {/* <ladel>Key</ladel>
       <textarea
         placeholder="key"
         value={seoKey}
         onChange={(ev) => setSeoKey(ev.target.value)}
-      ></textarea>
-      <h1>Про товар</h1>
-      <ladel>Артикул</ladel>
+      ></textarea> */}
+      <p>Про товар</p>
+      {/* <ladel>Артикул</ladel>
       <textarea
         placeholder="артикул"
         value={article}
@@ -286,47 +429,49 @@ export default function ProductForm({
         placeholder="характеристики"
         value={characteristics}
         onChange={(ev) => setCharacteristics(ev.target.value)}
-      ></textarea>
+      ></textarea> */}
+
+      <p>Опис товару (тут можна додати масив description: title and text)</p>
       {dynamicCharacteristics.map((char, index) => (
-        <div key={index}>
-          <input
-            type="text"
-            placeholder="Ключ"
-            value={char.key}
-            onChange={(ev) => updateCharacteristic(index, ev.target.value, char.value)}
-          />
-          <input
-            type="text"
-            placeholder="Значення"
-            value={char.value}
-            onChange={(ev) => updateCharacteristic(index, char.key, ev.target.value)}
-          />
+        <div key={index} className="input-block">
+          <label>Заголовок
+            <input
+              type="text"
+              placeholder="Ключ"
+              value={char.key}
+              onChange={(ev) => updateCharacteristic(index, ev.target.value, char.value)}
+            />
+          </label>
+          <label>Текст опису властивості
+            <input
+              type="text"
+              placeholder="Значення"
+              value={char.value}
+              onChange={(ev) => updateCharacteristic(index, char.key, ev.target.value)}
+            />
+          </label>
           <button type="button" className="btn-red" onClick={() => removeCharacteristic(index)}>
             Видалити
           </button>
         </div>
       ))}
-      <button type="button" className="btn-primary my-2 " onClick={addCharacteristic}>
-        Додати характеристику
-      </button>
+      <div className="grid-2-sb">
+        <button type="button" className="btn btn-primary my-2 " onClick={addCharacteristic}>
+          Додати розділ опису
+        </button>
 
-      {/* Нові дані для вводу  */}
-      <ladel className=" mx-2 " >Опис</ladel>
-      <textarea
+        {/* Нові дані для вводу  */}
+        {/* <ladel className=" mx-2 " >Опис</ladel> */}
+        {/* <textarea
         placeholder="опис"
         value={description}
         onChange={(ev) => setDescription(ev.target.value)}
-      ></textarea>
-      <ladel>Ціна</ladel>
-      <input
-        type="number"
-        placeholder="ціна"
-        value={price}
-        onChange={(ev) => setPrice(ev.target.value)}
-      />
-      <button type="submit" className="btn-primary">
-        Зберегти
-      </button>
+      ></textarea> */}
+
+        <button type="submit" className="btn-primary my-2">
+          Зберегти товар
+        </button>
+      </div>
     </form>
   );
 }
