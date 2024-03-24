@@ -13,7 +13,6 @@ export default async function handle(req, res) {
         } else {
             res.json(await Product.find())
         }
-
     }
 
     if (method === "POST") {
