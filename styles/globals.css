@@ -62,3 +62,46 @@ table.basic a {
 .btn-default {
   @apply bg-gray-600 text-white px-4 py-1 rounded-sm;
 }
+
+.input-block {
+  box-sizing: border-box;
+  border: 1px solid #ececec;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.grid-2-sb {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .grid-2-sb button {
+  width: fit-content;
+} */
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.stock {
+  align-self: center;
+}
+
+.isOnStock {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  gap: 20px;
+}
+
+.isOnStock > label {
+  text-align: center;
+}
