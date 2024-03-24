@@ -24,11 +24,8 @@ export const authOptions = {
       }
     },
     async redirect(url, baseUrl) {
-      return url.startsWith(baseUrl)
-        ? url
-        : baseUrl
-      },
-  }
+      return process.env.REDIRECT_URL
+    }
 }
 
 export default NextAuth(authOptions);
