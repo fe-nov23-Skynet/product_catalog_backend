@@ -26,6 +26,7 @@ export const authOptions = {
     async redirect(url, baseUrl) {
       return process.env.REDIRECT_URL
     }
+  }
 }
 
 export default NextAuth(authOptions);
