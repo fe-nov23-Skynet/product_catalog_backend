@@ -24,7 +24,7 @@ export const authOptions = {
       }
     },
      async redirect(url, baseUrl) {
-      return 'https://product-catalog-backend-tan.vercel.app/'; 
+      return process.env.REDIRECT_URL;
     }
   }
 }
