@@ -23,6 +23,9 @@ export const authOptions = {
         return false;
       }
     },
+     async redirect(url, baseUrl) {
+      return 'https://product-catalog-backend-tan.vercel.app/'; 
+    }
   }
 }
 
