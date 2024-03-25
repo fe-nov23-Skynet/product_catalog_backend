@@ -23,9 +23,6 @@ export const authOptions = {
         return false;
       }
     },
-    async redirect(url, baseUrl) {
-      return process.env.REDIRECT_URL
-    }
   }
 }
 
